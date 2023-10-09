@@ -30,12 +30,12 @@ const GetTask = ({ getTask }: GetTaskProps) => {
   }
 
   return (
-    <div>
+    <div className="mt-3">
       {getTask?.map((item) => {
         const { task, id, checked } = item;
 
         return (
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row gap-2 justify-between">
             <p
               onClick={() => handleCheckTask(id)}
               style={{ textDecoration: checked ? "line-through" : "none" }}

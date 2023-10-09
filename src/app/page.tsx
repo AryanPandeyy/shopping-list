@@ -7,8 +7,10 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col m-9 justify-center">
-      <h1>My Shopping List</h1>
-      <AddTask />
+      <div className="flex justify-between">
+        <h1 className="text-xl font-semibold">My Shopping List</h1>
+        <AddTask />
+      </div>
       <GetTask getTask={getTask} />
     </div>
   );

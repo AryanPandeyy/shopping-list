@@ -17,8 +17,17 @@ const AddTask = () => {
   return (
     <div>
       <form onSubmit={(e) => handleAddTask(e)}>
-        <input value={task} onChange={(e) => setTask(e.target.value)} />
-        <button type="submit">Add</button>
+        <input
+          className="ring-1 ring-gray-700"
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+        />
+        <button
+          className="mx-2 border border-gray-700 px-3 text-white bg-black"
+          type="submit"
+        >
+          Add
+        </button>
       </form>
     </div>
   );
