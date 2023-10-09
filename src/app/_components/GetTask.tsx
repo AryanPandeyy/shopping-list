@@ -1,18 +1,27 @@
 "use client";
+
 import React from "react";
 import { trpc } from "../_trpc/client";
-import { revalidatePath } from "next/cache";
+import { useRouter } from "next/navigation";
+type GetTaskProps = {
+  getTask: Array<{ id: string; task: string }>; // Define the type for getTask
+};
 
-const GetTask = () => {
-  const { data, isLoading, isError } = trpc.getTask.useQuery();
+const GetTask = ({ getTask }: GetTaskProps) => {
   const deleteTask = trpc.deleteTask.useMutation();
+  const router = useRouter();
   function handleTaskDeletion(id: string): void {
-    deleteTask.mutate({ id: id });
+    try {
+      deleteTask.mutate({ id: id });
+      router.refresh();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
     <div>
-      {data?.map((item) => {
+      {getTask?.map((item) => {
         const { task, id } = item;
         return (
           <div className="flex flex-row gap-2">
