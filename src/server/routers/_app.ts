@@ -20,5 +20,14 @@ export const appRouter = router({
         },
       });
     }),
+  deleteTask: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async (opts) => {
+      await prisma.list.delete({
+        where: {
+          id: opts.input.id,
+        },
+      });
+    }),
 });
 export type AppRouter = typeof appRouter;

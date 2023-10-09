@@ -14,10 +14,10 @@ const AddTask = () => {
   }
 
   return (
-    <>
+    <div>
       <input value={task} onChange={(e) => setTask(e.target.value)} />
       <button onClick={handleAddTask}>Add</button>
-    </>
+    </div>
   );
 };
 export default AddTask;
