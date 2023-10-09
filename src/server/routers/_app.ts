@@ -7,7 +7,11 @@ export const appRouter = router({
     return 9;
   }),
   getTask: publicProcedure.query(async (opts) => {
-    const result = prisma.list.findMany();
+    const result = prisma.list.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
     console.log("RESULT ", result);
     return result;
   }),

@@ -4,7 +4,7 @@ import React from "react";
 import { trpc } from "../_trpc/client";
 import { useRouter } from "next/navigation";
 type GetTaskProps = {
-  getTask: Array<{ id: string; task: string }>; // Define the type for getTask
+  getTask: Array<{ id: string; task: string; checked: boolean }>; // Define the type for getTask
 };
 
 const GetTask = ({ getTask }: GetTaskProps) => {
@@ -23,18 +23,25 @@ const GetTask = ({ getTask }: GetTaskProps) => {
   function handleCheckTask(id: string): void {
     try {
       checkTask.mutate({ id: id });
+      router.refresh();
     } catch (e) {
       console.log(e);
     }
   }
+
   return (
     <div>
       {getTask?.map((item) => {
-        const { task, id } = item;
+        const { task, id, checked } = item;
 
         return (
           <div className="flex flex-row gap-2">
-            <p onClick={() => handleCheckTask(id)}>{task}</p>
+            <p
+              onClick={() => handleCheckTask(id)}
+              style={{ textDecoration: checked ? "line-through" : "none" }}
+            >
+              {task}
+            </p>
             <button onClick={() => handleTaskDeletion(id)}>❌</button>
           </div>
         );
