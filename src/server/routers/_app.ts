@@ -29,5 +29,13 @@ export const appRouter = router({
         },
       });
     }),
+  // https://github.com/prisma/prisma/discussions/2531#discussioncomment-17499
+  // https://github.com/prisma/prisma/discussions/2531
+  checkTask: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async (opts) => {
+      await prisma.$executeRaw`UPDATE public."List" SET checked = NOT checked WHERE id = ${opts.input.id};
+`;
+    }),
 });
 export type AppRouter = typeof appRouter;

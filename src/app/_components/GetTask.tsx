@@ -9,6 +9,7 @@ type GetTaskProps = {
 
 const GetTask = ({ getTask }: GetTaskProps) => {
   const deleteTask = trpc.deleteTask.useMutation();
+  const checkTask = trpc.checkTask.useMutation();
   const router = useRouter();
   function handleTaskDeletion(id: string): void {
     try {
@@ -19,13 +20,21 @@ const GetTask = ({ getTask }: GetTaskProps) => {
     }
   }
 
+  function handleCheckTask(id: string): void {
+    try {
+      checkTask.mutate({ id: id });
+    } catch (e) {
+      console.log(e);
+    }
+  }
   return (
     <div>
       {getTask?.map((item) => {
         const { task, id } = item;
+
         return (
           <div className="flex flex-row gap-2">
-            <p>{task}</p>
+            <p onClick={() => handleCheckTask(id)}>{task}</p>
             <button onClick={() => handleTaskDeletion(id)}>❌</button>
           </div>
         );
